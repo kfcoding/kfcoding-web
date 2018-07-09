@@ -1,17 +1,19 @@
 import React from 'react';
-import {message, Modal, Layout, Divider, Button, Menu, Icon , Card , Avatar} from 'antd';
-import { Row, Col } from 'antd';
-import {Link} from 'react-router-dom';
+import { message, Modal, Layout, Divider, Button, Menu, Icon, Card, Avatar } from 'antd';
+import { Link } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 import MyHeader from "components/Header";
 import MyFooter from "components/Footer";
-import {getWorkspaceByUser, createWorkSpace,deleteWorkspace} from "services/workspace";
+import { getWorkspaceByUser, createWorkSpace, deleteWorkspace } from "services/workspace";
 
 const {Content, Sider} = Layout;
 const ButtonGroup = Button.Group;
 const {SubMenu} = Menu;
 const confirm = Modal.confirm;
-const { Meta } = Card;
+const {Meta} = Card;
 
+@inject('store')
+@observer
 class MyWorkspace extends React.Component {
 
   state = {
@@ -22,8 +24,7 @@ class MyWorkspace extends React.Component {
     deleteVisible: false,
   }
 
-  showDeleteConfirm(id) {
-    console.log(this.state);
+  showDeleteConfirm(wsp) {
     const self = this;
     confirm({
       title: '确定删除该工作空间？',
@@ -32,15 +33,7 @@ class MyWorkspace extends React.Component {
       okType: 'danger',
       cancelText: '取消',
       onOk() {
-        deleteWorkspace(id).then(res => {
-          if (res.data.code == 200) {
-            message.success("删除成功");
-            // 重新加载
-            getWorkspaceByUser().then(res => {
-              self.setState({workspaces: res.data.result.workspaces})
-            })
-          }
-        })
+        self.props.store.currentUser.workspaceStore.removeWorkspace(wsp);
       },
       onCancel() {
         console.log('Cancel');
@@ -49,9 +42,7 @@ class MyWorkspace extends React.Component {
   }
 
   componentWillMount() {
-    getWorkspaceByUser().then(res => {
-      this.setState({workspaces: res.data.result.workspaces})
-    })
+    this.props.store.currentUser.loadWorkspaces();
   }
 
   showModal = () => {
@@ -60,27 +51,8 @@ class MyWorkspace extends React.Component {
     });
   }
 
-
   handleCancel = () => {
     this.setState({visible: false});
-  }
-  handleCreate = () => {
-    const form = this.formRef.props.form;
-    form.validateFields((err, values) => {
-      if (err) {
-        return;
-      }
-      var user = JSON.parse(localStorage.getItem('user'));
-      values['author'] = user.name;
-      values['userId'] = user.id
-      console.log('Received values of form: ', values);
-      createWorkSpace(values).then(res => {
-        getWorkspaceByUser().then(res => {
-          this.setState({workspaces: res.data.result.workspaces})
-          this.setState({visible: false})
-        })
-      })
-    }).bind(this)
   }
 
   OpenClick = (kf) => {
@@ -88,24 +60,23 @@ class MyWorkspace extends React.Component {
   }
 
   render() {
-    const {visible, loading} = this.state;
 
-    let workspaces = this.state.workspaces.map((kf) => {
-      let edithref = '/editor/' + kf.id;
-      let deletehref = '/workspaces' + kf.id;
+    let workspaces = this.props.store.currentUser.workspaceStore.workspaces.map((kf) => {
       return (
         <div style={{float: 'left', marginRight: '40px', marginBottom: '40px'}}>
           <Card
             hoverable
-            style={{ width: 240}}
-            actions={[<Icon onClick={() => {this.OpenClick(kf)}} type="caret-right" />,<Icon type="delete" onClick={() => this.showDeleteConfirm(kf.id)}/>]}
+            style={{width: 240}}
+            actions={[<a href={'http://workspace.kfcoding.com/' + kf.id} target='_blank'><Icon type="caret-right"/></a>, <Icon type="delete" onClick={() => this.showDeleteConfirm(kf)}/>]}
           >
             <Meta
-              avatar={<Avatar icon="folder" />}
+              avatar={<Avatar icon="folder"/>}
               title={kf.title}
               // description={kf.gitUrl}
-              onClick={() => {this.OpenClick(kf)}}
-              style={{marginRight:0}}
+              onClick={() => {
+                this.OpenClick(kf)
+              }}
+              style={{marginRight: 0}}
             />
           </Card>
         </div>
@@ -144,7 +115,7 @@ class MyWorkspace extends React.Component {
               <div style={{background: '#fff', padding: 24, minHeight: 280, overflow: 'auto'}}>
                 <Divider orientation="left" style={{fontSize: '28px'}}>Workspace</Divider>
                 <div style={{marginBottom: 30}}>
-                <Link to='/home/workspaces/create'><Button type="primary" icon="plus">创建Workspace</Button></Link>
+                  <Link to='/home/workspaces/create'><Button type="primary" icon="plus">创建Workspace</Button></Link>
                 </div>
                 {workspaces}
               </div>

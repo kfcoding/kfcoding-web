@@ -5,7 +5,7 @@ import { Provider } from "mobx-react";
 import { onSnapshot } from "mobx-state-tree"
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
-import { Store } from "./store";
+import { Store } from "./stores";
 import Index from "./pages/Index";
 import WrappedSignin from "./pages/Signin";
 import WrappedSignUp from "./pages/Signup";
