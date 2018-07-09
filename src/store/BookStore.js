@@ -25,12 +25,7 @@ export const BookStore = types
     removeBook: flow(function*(book) {
       try {
         const result = yield deleteKongfu(book.id);
-        for (var i in self.books) {
-          if (self.books[i] == book) {
-            self.books.splice(i, 1);
-            break;
-          }
-        }
+        self.books.remove(book);
       } catch (err) {
         console.log(err)
       }
