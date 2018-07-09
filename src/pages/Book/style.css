@@ -1,0 +1,17 @@
+.catalog ul {
+    padding-left: 10px;
+}
+dt {
+    font-weight: bold;
+}
+dd {
+    margin: 0;
+    padding: 0.4em 0 0.6em 2em;
+}
+
+blockquote {
+    padding: 10px 20px;
+    border-left: 3px solid #5293d8;
+    background: #f6f6f6;
+    margin: 0 0 10px 0;
+}

@@ -9,7 +9,7 @@ const menu = (
       <Link to='/users/setting'><Icon type="user"/> 个人信息</Link>
     </Menu.Item>
     <Menu.Item>
-      <Link to='/home/workspaces'><Icon type="desktop"/> Workspace</Link>
+      <Link to='/home/workspaces'><Icon type="desktop"/> 训练场(Workspace)</Link>
     </Menu.Item>
     <Menu.Divider/>
     <Menu.Item>
@@ -21,10 +21,10 @@ const menu = (
 const createMenu = (
   <Menu>
     <Menu.Item>
-      <Link to='/books/create'><Icon type="plus" />创建新功夫</Link>
+      <Link to='/books/create'><Icon type="plus" />创建编程秘籍</Link>
     </Menu.Item>
     <Menu.Item>
-      <Link to='/home/workspaces/create'><Icon type="plus"/>创建Workspace</Link>
+      <Link to='/home/workspaces/create'><Icon type="plus"/>创建训练场(Workspace)</Link>
     </Menu.Item>
   </Menu>
 )
@@ -55,7 +55,7 @@ class HeaderRight extends React.Component {
           </span>
         :
         <span style={{float: 'right'}}>
-            <Link to='signin'><Button type='primary' icon='user' size='large' onClick={this.login}>登录／注册</Button></Link>
+            <Link to='/signin'><Button type='primary' icon='user' onClick={this.login}>登录／注册</Button></Link>
         </span>
 
     )

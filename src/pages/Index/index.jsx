@@ -6,6 +6,7 @@ import Page2 from './Page2';
 import Page3 from './Page3';
 import Page4 from './Page4';
 import Footer from './Footer';
+import MyHeader from "../../components/Header";
 
 function getStyle() {
   return `
@@ -60,7 +61,7 @@ class Home extends React.Component {
   render() {
     return (
         <div className="main-wrapper">
-          <Header />
+          <MyHeader />
           <Banner />
           <Page1 />
           <Page4 />

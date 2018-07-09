@@ -7,29 +7,6 @@ import HeaderRight from "./HeaderRight";
 
 const {Header} = Layout;
 
-const menu = (
-  <Menu>
-    <Menu.Item>
-      <Link to='/home/workspaces'><Icon type="desktop"/> Workspace</Link>
-    </Menu.Item>
-    <Menu.Divider/>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="//"><Icon type="poweroff"/> 退出</a>
-    </Menu.Item>
-  </Menu>
-);
-
-const createMenu = (
-  <Menu>
-    <Menu.Item>
-      <Link to='/books/create'><Icon type="plus" />创建新功夫</Link>
-    </Menu.Item>
-    <Menu.Item>
-      <Link to='/home/workspaces/create'><Icon type="plus"/>创建Workspace</Link>
-    </Menu.Item>
-  </Menu>
-)
-
 @inject('store')
 @observer
 class MyHeader extends React.Component {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Layout, Divider, Button, Steps, message, Form, Input, Upload, Icon, Tag, Menu, Switch } from 'antd';
-import MyHeader from "components/Header";
-import MyFooter from "components/Footer";
+import { Layout, Divider, Button, Steps, message, Form, Input, Upload, Icon, Tag, Modal, Switch } from 'antd';
+import {inject, observer} from 'mobx-react';
+import {withRouter} from 'react-router-dom';
 import { createKongfu, getKongfu, getTags, updateKongfu } from "services/kongfu";
 import Book from "components/Book";
 
@@ -45,21 +45,21 @@ const BasicForm = Form.create({
   return (
     <Form>
       <FormItem
-        label='功夫名称'
+        label='秘籍名称'
         required
       >
         {getFieldDecorator('title', {
-          rules: [{required: true, message: '功夫名称不能为空'}],
+          rules: [{required: true, message: '秘籍名称不能为空'}],
         })(
           <Input/>
         )}
       </FormItem>
       <FormItem
-        label='功夫描述'
+        label='秘籍描述'
         required
       >
         {getFieldDecorator('brief', {
-          rules: [{required: true, message: '功夫描述不能为空'}],
+          rules: [{required: true, message: '秘籍描述不能为空'}],
         })(
           <Input/>
         )}
@@ -68,15 +68,15 @@ const BasicForm = Form.create({
   );
 })
 
+@inject('store')
+  @observer
 class KongfuSettings extends React.Component {
   constructor(props) {
     super(props);
-
+console.log(this.props.book)
     this.state = {
-      kongfu_id: this.props.match.params.kongfu_id,
-      kongfu: {
-        title: ''
-      },
+      kongfu_id: this.props.book.id,
+      kongfu: this.props.book,
       tags: [],
 
       fields: {
@@ -93,14 +93,20 @@ class KongfuSettings extends React.Component {
   }
 
   componentDidMount() {
-    getKongfu(this.state.kongfu_id).then(res => {console.log('ok',res.data.result.kongfu.tags);
-      this.setState({kongfu: res.data.result.kongfu});
-      this.setState({fields: {
-        title: {value: res.data.result.kongfu.title},
-        brief: {value: res.data.result.kongfu.brief},
-        tags: res.data.result.kongfu.tags
-      }});
-    })
+    let {book} = this.props;
+    this.setState({fields: {
+            title: {value: book.title},
+            brief: {value: book.brief},
+            tags: book.tags
+          }});
+    // getKongfu(this.state.kongfu_id).then(res => {console.log('ok',res.data.result.kongfu.tags);
+    //   this.setState({kongfu: res.data.result.kongfu});
+    //   this.setState({fields: {
+    //     title: {value: res.data.result.kongfu.title},
+    //     brief: {value: res.data.result.kongfu.brief},
+    //     tags: res.data.result.kongfu.tags
+    //   }});
+    // })
     getTags().then(res => {
       this.setState({tags: res.data.result.taglist});
     })
@@ -171,12 +177,29 @@ class KongfuSettings extends React.Component {
     this.setState({kongfu: kongfu});
   }
 
+  showDeleteConfirm = () => {
+    const self = this;
+    Modal.confirm({
+      title: `确定删除《${this.props.book.title}》？`,
+      content: '',
+      okText: '确定',
+      okType: 'danger',
+      cancelText: '取消',
+      onOk() {
+        self.props.store.currentUser.bookStore.removeBook(self.props.book);
+        message.success('删除成功');
+        setTimeout(() => {
+          self.props.history.push(`/home`)
+        }, 2000);
+      }
+    });
+  }
+
+
   render() {
     let valid = this.state.fields.title.value && this.state.fields.brief.value && this.state.fields.tags.length ? true : false;
 
     return (
-      <Layout>
-        <MyHeader/>
         <Content style={{ padding: '50px' }}>
           <Layout style={{ padding: '24px 0', background: '#fff' }}>
             <Sider width={300} style={{ background: '#fff', paddingLeft: '30px' }}>
@@ -205,17 +228,16 @@ class KongfuSettings extends React.Component {
                   <Switch checked={this.state.kongfu.status == 'public'} onChange={this.onChangePublish} />
                 </Form.Item>
                 <Form.Item>
-                  <Button type="primary" onClick={this.done} disabled={!valid}><Icon type="check" />完成</Button>
+                  <Button type="primary" onClick={this.done} disabled={!valid} style={{marginRight: 20}}><Icon type="check" />保 存</Button>
+                  <Button type='danger' onClick={this.showDeleteConfirm}><Icon type='delete'/>删除秘籍</Button>
                 </Form.Item>
               </div>
             </Content>
 
           </Layout>
         </Content>
-        <MyFooter/>
-      </Layout>
     )
   }
 }
 
-export default KongfuSettings;
+export default withRouter(KongfuSettings);

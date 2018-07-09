@@ -21,6 +21,7 @@ import KongfuSettings from "./pages/Home/KongfuSettings";
 import Callback from "./pages/Signin/Callback";
 import UserProfile from 'pages/Profile/UserProfile';
 import UserSetting from "./pages/Home/UserSetting";
+import BasicLayout from "./layouts/BasicLayout";
 
 if (window.location.hostname.substr(0, 3) == 'www') {
   window.location.replace('http://kfcoding.com');
@@ -44,15 +45,15 @@ ReactDOM.render(
         <Route exact path='/editor/:kongfu_id' component={props => <Editor {...props}/>}/>
         <Route path='/reader/:kongfu_id' component={props => <Reader {...props}/>}/>
         <Route path='/auth/callback' component={Callback}/>
-        <Route path='/home' exact component={Home}/>
+        <Route path='/home' exact component={props => <BasicLayout><Home {...props}/></BasicLayout>}/>
         <Route path='/library' component={Library}/>
         <Route path='/books/create' exact component={CreateBook}/>
-        <Route path='/books/:kongfu_id' exact component={props => <Book {...props}/>}/>
+        <Route path='/books/:kongfu_id' exact component={props => <BasicLayout><Book {...props}/></BasicLayout>}/>
         <Route path='/books/:kongfu_id/settings' component={props => <KongfuSettings {...props}/>}/>
         <Route path='/users/setting' exact component={UserSetting}/>
-        <Route path='/users/:user_id' exact component={props => <UserProfile {...props}/>}/>
+        <Route path='/users/:user_id' exact component={props => <BasicLayout><UserProfile {...props}/></BasicLayout>}/>
         <Route path='/home/workspaces/create' exact component={CreateWorkspace}/>
-        <Route path='/home/workspaces' exact component={MyWorkspaces}/>
+        <Route path='/home/workspaces' exact component={props => <BasicLayout><MyWorkspaces {...props}/></BasicLayout>}/>
       </Switch>
     </BrowserRouter>
   </Provider>,

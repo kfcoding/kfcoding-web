@@ -153,7 +153,7 @@ class TrainPanel extends React.Component {
             onEdit={this.onEdit}
             tabBarExtraContent={extra}
             style={{height: '100vh'}}
-            className="full-screenable-node"
+            className="full-screenable-node trainpanel"
           >
             {this.state.panes.map(pane => <TabPane tab={pane.title} key={pane.key} style={{height: '100%'}}>{pane.content}</TabPane>)}
           </Tabs>

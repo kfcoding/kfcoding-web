@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layout, Divider, Button, Steps, Form, Input, Upload, Icon, Tag } from 'antd';
+import {withRouter} from 'react-router-dom';
 import MyHeader from "components/Header";
 import MyFooter from "components/Footer";
 import './CreateKongfu.css';
@@ -119,7 +120,7 @@ class CreateKongfu extends React.Component {
     };
     createKongfu(data).then(res => {
       if (!res.err) {
-        // window.location.href = '/home';
+        this.props.history.push('/home');
       }
     })
   }
@@ -163,4 +164,4 @@ class CreateKongfu extends React.Component {
   }
 }
 
-export default CreateKongfu;
+export default withRouter(CreateKongfu);

@@ -84,10 +84,8 @@ class MyWorkspace extends React.Component {
     })
 
     return (
-      <Layout>
-        <MyHeader/>
-        <Content style={{padding: '50px'}}>
-          <Layout style={{padding: '24px 0', background: '#fff'}}>
+        <Content style={{margin: '50px'}}>
+          <Layout style={{background: '#fff'}}>
             <Sider width={200} style={{background: '#fff'}}>
               <Menu
                 mode="inline"
@@ -122,8 +120,6 @@ class MyWorkspace extends React.Component {
             </Content>
           </Layout>
         </Content>
-        <MyFooter></MyFooter>
-      </Layout>
     );
   }
 }
