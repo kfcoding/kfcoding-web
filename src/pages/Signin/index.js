@@ -109,6 +109,7 @@ class WrappedSignin extends React.Component {
     );
     window.addEventListener('message', (m) => {
       localStorage.setItem('token', m.data.token);
+      this.props.store.loadCurrentUser();
       window.location.replace('/home');
     })
   }
