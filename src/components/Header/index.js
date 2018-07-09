@@ -3,15 +3,16 @@ import { Layout, Dropdown, Avatar, Icon, Menu, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import './style.css';
+import HeaderRight from "./HeaderRight";
 
 const {Header} = Layout;
 
 const menu = (
   <Menu>
-    {/*<Menu.Item>*/}
-    {/*<a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/"><Icon type="user"/> 个人信息</a>*/}
-    {/*</Menu.Item>*/}
-    {/*<Menu.Divider/>*/}
+    <Menu.Item>
+      <Link to='/home/workspaces'><Icon type="desktop"/> Workspace</Link>
+    </Menu.Item>
+    <Menu.Divider/>
     <Menu.Item>
       <a target="_blank" rel="noopener noreferrer" href="//"><Icon type="poweroff"/> 退出</a>
     </Menu.Item>
@@ -51,32 +52,8 @@ class MyHeader extends React.Component {
           style={{lineHeight: '64px', float: 'left'}}
         >
           <Menu.Item key="1"><Link to='/library'>功夫图书馆</Link></Menu.Item>
-          <Menu.Item key="2">
-            <Link to='/home/workspaces'>Workspace</Link>
-          </Menu.Item>
         </Menu>
-        {this.props.store.currentUser.id != '' ?
-          <span style={{float: 'right'}}>
-
-            <Dropdown overlay={createMenu} style={{float: 'right'}}>
-              <Icon className='create-btn' type="plus-circle" style={{fontSize: 24, color: 'white', marginTop: '20px', marginRight: 30}}/>
-            </Dropdown>
-              {/*<Dropdown overlay={menu}>*/}
-              <div style={{float: 'right'}}>
-              <Link to='/home'>
-                <Avatar src={this.props.store.currentUser.avatarUrl || '//static.cloudwarehub.com/logo-min.png?x-oss-process=style/logo'}></Avatar>
-                <span style={{color: '#fff', padding: '0 15px'}}>{this.props.store.currentUser.name}</span>
-                {/*<Icon type="down" style={{color: '#fff'}}/>*/}
-              </Link>
-            </div>
-              {/*</Dropdown>*/}
-
-          </span>
-          :
-          <span style={{float: 'right'}}>
-            <Link to='signin'><Button type='primary' icon='user' size='large' onClick={this.login}>登录／注册</Button></Link>
-          </span>
-        }
+        <HeaderRight/>
 
       </Header>
     )

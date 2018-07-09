@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { currentUser, getUser } from "../../services/users";
 import { openWindow } from "../../utils/openWindow";
+import HeaderRight from "../../components/Header/HeaderRight";
 
 const { Header } = Layout;
 
@@ -46,28 +47,7 @@ class MyHeader extends React.Component {
         <span style={{color: '#fff', fontSize: '24px'}}>
           <a href="/index" style={{color: '#fff'}}><img src="//static.cloudwarehub.com/logo-min.png?x-oss-process=style/logo" style={{width: '80px'}}/> 功夫编程</a>
         </span>
-        {this.props.store.currentUser.id == '' ?
-          <span style={{float: 'right'}}>
-            <Link to='/signin'><Button type='primary' icon='user' size='large' onClick={this.login}>登录／注册</Button></Link>
-          </span>
-          :
-          <span style={{float: 'right'}}>
-
-            <Dropdown overlay={createMenu} style={{float: 'right'}}>
-              <Icon className='create-btn' type="plus-circle" style={{fontSize: 24, color: 'white', marginTop: '20px', marginRight: 30}}/>
-            </Dropdown>
-            {/*<Dropdown overlay={menu}>*/}
-            <div style={{float: 'right'}}>
-              <Link to='/home'>
-                <Avatar src={this.props.store.currentUser.avatarUrl || '//static.cloudwarehub.com/logo-min.png?x-oss-process=style/logo'}></Avatar>
-                <span style={{color: '#fff', padding: '0 15px'}}>{this.props.store.currentUser.name}</span>
-                {/*<Icon type="down" style={{color: '#fff'}}/>*/}
-              </Link>
-            </div>
-            {/*</Dropdown>*/}
-
-          </span>
-        }
+        <HeaderRight/>
 
       </Header>
     )
