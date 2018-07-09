@@ -1,0 +1,36 @@
+{
+  "name": "kfcoding-web",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@kfcoding/kfeditor": "^0.0.14",
+    "ali-oss": "^5.3.1",
+    "antd": "^3.6.0",
+    "babel-plugin-import": "^1.8.0",
+    "brace": "^0.11.1",
+    "mobx": "^5.0.3",
+    "mobx-react": "^5.2.3",
+    "mobx-state-tree": "^2.2.0",
+    "rc-queue-anim": "^1.6.5",
+    "rc-scroll-anim": "^2.5.3",
+    "rc-tween-one": "^2.1.4",
+    "react": "^16.4.1",
+    "react-ace": "^6.1.4",
+    "react-app-rewire-mobx": "^1.0.8",
+    "react-app-rewired": "^1.5.2",
+    "react-dom": "^16.4.1",
+    "react-full-screen": "^0.2.2",
+    "react-onclickoutside": "^6.7.1",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.1.4",
+    "react-split-pane": "^0.1.81",
+    "slate": "^0.34.5",
+    "xterm": "^3.4.1"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
