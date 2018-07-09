@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
+import { Link } from 'react-router-dom';
 import TweenOne from 'rc-tween-one';
 import QueueAnim from 'rc-queue-anim';
 import ScrollParallax from 'rc-scroll-anim/lib/ScrollParallax';
@@ -63,11 +64,8 @@ class Banner extends React.PureComponent {
             <p key="p">
              新一代交互式开发者学习社区
             </p>
-            <div className="banner-btns" key="button1">
-              <Button type='primary' icon='github' size='large' onClick={this.login}>立即体验</Button>
-            </div>
             <div className="banner-btns" key="button2">
-              <Button type='primary' icon='mail' size='large' href="/signin">邮箱登录</Button>
+              <Link to='/signin'><Button type='primary' icon='smile' size='large' href="/signin">立即体验</Button></Link>
             </div>
           </QueueAnim>
           {(

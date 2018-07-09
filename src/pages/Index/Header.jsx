@@ -48,7 +48,7 @@ class MyHeader extends React.Component {
         </span>
         {this.props.store.currentUser.id == '' ?
           <span style={{float: 'right'}}>
-            <Button type='primary' icon='github' size='large' onClick={this.login}>Github登录</Button>
+            <Link to='/signin'><Button type='primary' icon='user' size='large' onClick={this.login}>登录／注册</Button></Link>
           </span>
           :
           <span style={{float: 'right'}}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Dropdown, Avatar, Icon, Menu, Popover } from 'antd';
+import { Layout, Dropdown, Avatar, Icon, Menu, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import './style.css';
@@ -72,7 +72,10 @@ class MyHeader extends React.Component {
               {/*</Dropdown>*/}
 
           </span>
-          : null
+          :
+          <span style={{float: 'right'}}>
+            <Link to='signin'><Button type='primary' icon='user' size='large' onClick={this.login}>登录／注册</Button></Link>
+          </span>
         }
 
       </Header>

@@ -6,6 +6,7 @@ import MyHeader from "components/Header";
 import MyFooter from "components/Footer";
 import pic from '../../assets/pic.png';
 import { emailSignin, currentUser } from "../../services/users";
+import { openWindow } from "../../utils/openWindow";
 
 const FormItem = Form.Item;
 const {Content, Sider} = Layout;
@@ -55,9 +56,9 @@ const BasicForm = Form.create({
           })(
             <Checkbox>记住密码</Checkbox>
           )}
-          <span style={{float: 'right'}}>
-            <a className="login-form-forgot" href="">忘记密码</a>
-          </span>
+          {/*<span style={{float: 'right'}}>*/}
+            {/*<a className="login-form-forgot" href="">忘记密码</a>*/}
+          {/*</span>*/}
         </FormItem>
       </Form>
     );
@@ -99,6 +100,19 @@ class WrappedSignin extends React.Component {
     }));
   }
 
+  thirdPartyLogin = () => {
+    openWindow(
+      'https://github.com/login/oauth/authorize?client_id=1eb243e826a117b3e138&',
+      '登录',
+      600,
+      600
+    );
+    window.addEventListener('message', (m) => {
+      localStorage.setItem('token', m.data.token);
+      window.location.replace('/home');
+    })
+  }
+
   render() {
     return (
       <Layout>
@@ -117,9 +131,13 @@ class WrappedSignin extends React.Component {
                   <Button type="primary" onClick={this.handleSubmit} className="login-form-button">
                     登录
                   </Button>
-                  <span style={{float: 'right'}}>
+                  <span style={{marginLeft: 40}}>
                       <Link to="/signup">还没账号，马上注册！</Link>
                     </span>
+
+                  <span style={{float: 'right'}}>
+                    其他登录方式：<Icon onClick={this.thirdPartyLogin} type='github' style={{fontSize: 24, cursor: 'pointer'}}/>
+                  </span>
                 </FormItem>
               </div>
             </Content>
