@@ -112,7 +112,6 @@ class MyWorkspace extends React.Component {
       )
     })
 
-    let username = JSON.parse(localStorage.getItem('user')).name;
     return (
       <Layout>
         <MyHeader/>

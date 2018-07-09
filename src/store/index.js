@@ -29,6 +29,8 @@ export const Store = types
     signIn: flow(function* (data, fn) {
       try {
         const result = yield emailSignin(data);
+        localStorage.setItem('token', result.data.result.token);
+        self.loadCurrentUser();
         fn && fn(result);
       } catch (err) {
         console.log(err);
