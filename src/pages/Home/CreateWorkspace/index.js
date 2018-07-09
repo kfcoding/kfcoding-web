@@ -1,5 +1,6 @@
-import React, {PureComponent} from 'react';
-//import { connect } from 'dva';
+import React, { PureComponent } from 'react';
+import { withRouter } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
 import {
   Form,
   Input,
@@ -18,7 +19,7 @@ import {
 import MyHeader from "components/Header";
 import MyFooter from "components/Footer";
 import './Workspace.css';
-import {createWorkSpace , createContainer} from "services/workspace";
+import { createWorkSpace, createContainer } from "services/workspace";
 
 const {Content} = Layout;
 const FormItem = Form.Item;
@@ -29,25 +30,25 @@ const templateList = [
   {
     id: '1001',
     name: 'C++',
-    image:'daocloud.io/shaoling/workspace-env-cpp:master',
+    image: 'daocloud.io/shaoling/workspace-env-cpp:master',
     logo: '/C++.png',
   },
   {
     id: '1002',
     name: 'Python',
-    image:'kfcoding/workspace-python',
+    image: 'kfcoding/workspace-python',
     logo: '/Python.png',
   },
   {
     id: '1003',
     name: 'NodeJs',
-    image:'kfcoding/workspace-node',
+    image: 'kfcoding/workspace-node',
     logo: '/NodeJs.png',
   },
   {
     id: '1004',
     name: 'HTML5',
-    image:'kfcoding/workspace-html5',
+    image: 'kfcoding/workspace-html5',
     logo: '/HTML5.png',
   },
 ];
@@ -138,6 +139,8 @@ const BasicForm = Form.create({
   );
 })
 
+@inject('store')
+@observer
 class CreateWorkspace extends PureComponent {
   constructor(props) {
     super(props);
@@ -150,10 +153,11 @@ class CreateWorkspace extends PureComponent {
       }
     };
   };
+
   handleButtonClick = (image) => {
     console.log(image);
     this.setState({
-      template:image
+      template: image
     });
 
   }
@@ -165,25 +169,41 @@ class CreateWorkspace extends PureComponent {
   }
 
   done = () => {
+    const {store} = this.props;
+
     const user = JSON.parse(localStorage.getItem('user'));
 
     const _this = this;
 
-    createContainer(_this.state.template).then(r => {
-      let data = {
-        title: _this.state.fields.title.value,
-        description: _this.state.fields.description.value,
-        environment: _this.state.template,
-        gitUrl: _this.state.fields.URL.value,
-        userId: user.id,
-        containerName: r.data.name
-      };
-      createWorkSpace(data).then(res => {
-        if (!res.err) {
-          window.location.href = 'http://workspace.kfcoding.com/' + res.data.result.workspace.id;
-        }
-      })
-    })
+    let data = {
+      image: _this.state.template,
+      title: _this.state.fields.title.value,
+      description: _this.state.fields.description.value,
+      environment: _this.state.template,
+      gitUrl: _this.state.fields.URL.value,
+      userId: user.id,
+      containerName: ''
+    };
+
+    store.currentUser.workspaceStore.createWorkspace(data);
+
+    this.props.history.push('/home/workspaces');
+
+    // createContainer(_this.state.template).then(r => {
+    //   let data = {
+    //     title: _this.state.fields.title.value,
+    //     description: _this.state.fields.description.value,
+    //     environment: _this.state.template,
+    //     gitUrl: _this.state.fields.URL.value,
+    //     userId: user.id,
+    //     containerName: r.data.name
+    //   };
+    //   createWorkSpace(data).then(res => {
+    //     if (!res.err) {
+    //       window.location.href = 'http://workspace.kfcoding.com/' + res.data.result.workspace.id;
+    //     }
+    //   })
+    // })
 
   }
 
@@ -229,4 +249,4 @@ class CreateWorkspace extends PureComponent {
 }
 
 const createWorkspace = Form.create()(CreateWorkspace);
-export default createWorkspace;
+export default withRouter(createWorkspace);
