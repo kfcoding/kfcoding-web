@@ -18,6 +18,9 @@ export const Store = types
         self.currentUser.id = data.id;
         self.currentUser.email = data.email;
         self.currentUser.name = data.name;
+
+        localStorage.setItem('uid', data.id);
+        localStorage.setItem('user', JSON.stringify(data));
       } catch (err) {
         console.log(err)
       }
