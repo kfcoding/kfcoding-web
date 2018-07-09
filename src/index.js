@@ -20,6 +20,7 @@ import Editor from 'pages/Editor';
 import KongfuSettings from "./pages/Home/KongfuSettings";
 import Callback from "./pages/Signin/Callback";
 import UserProfile from 'pages/Profile/UserProfile';
+import UserSetting from "./pages/Home/UserSetting";
 
 if (window.location.hostname.substr(0, 3) == 'www') {
   window.location.replace('http://kfcoding.com');
@@ -48,7 +49,7 @@ ReactDOM.render(
         <Route path='/books/create' exact component={CreateBook}/>
         <Route path='/books/:kongfu_id' exact component={props => <Book {...props}/>}/>
         <Route path='/books/:kongfu_id/settings' component={props => <KongfuSettings {...props}/>}/>
-        {/*<Route path='/users/setting' exact component={UserSetting}/>*/}
+        <Route path='/users/setting' exact component={UserSetting}/>
         <Route path='/users/:user_id' exact component={props => <UserProfile {...props}/>}/>
         <Route path='/home/workspaces/create' exact component={CreateWorkspace}/>
         <Route path='/home/workspaces' exact component={MyWorkspaces}/>

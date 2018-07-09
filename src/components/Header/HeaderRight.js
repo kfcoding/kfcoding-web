@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 const menu = (
   <Menu>
     <Menu.Item>
+      <Link to='/users/setting'><Icon type="user"/> 个人信息</Link>
+    </Menu.Item>
+    <Menu.Item>
       <Link to='/home/workspaces'><Icon type="desktop"/> Workspace</Link>
     </Menu.Item>
     <Menu.Divider/>
