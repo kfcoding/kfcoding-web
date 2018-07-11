@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Icon, Rate, Steps, Menu } from 'antd';
+import { Layout, Icon, Rate, Steps, Menu, Divider  } from 'antd';
 //import CannerEditor from 'kfeditor-slate';
 import { Value } from 'slate';
 import 'pages/Editor/Editor.css';
@@ -12,6 +12,7 @@ import { getKongfu } from "services/kongfu";
 import Sidebar from "components/Sidebar/index";
 import SplitPane from 'react-split-pane';
 import Kfeditor from '@kfcoding/kfeditor';
+import Comment from '../Comment/Comment';
 
 const {Content} = Layout;
 
@@ -233,6 +234,10 @@ class Reader extends React.Component {
                       {editor}
                       <div style={{textAlign: 'right', paddingRight: '40px'}}>
                         评分：<Rate/>
+                      </div>
+                      <div style={{width:750}}>
+                        <Divider />
+                        <Comment/>
                       </div>
                       {/*<Steps current={1}>*/}
                       {/*<Step title="Finished" description="This is a description." />*/}
