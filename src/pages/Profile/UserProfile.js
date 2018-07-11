@@ -82,11 +82,9 @@ class UserProfile extends React.Component {
     return (
 
 
-          <Row style={{marginTop: 30}} gutter={40}>
+          <Row style={{marginTop: 30}} gutter={30}>
             <Col span={4} offset={3}>
               <Card
-                hoverable
-                style={{ width: 240 }}
                 cover={<img alt="example" src={this.state.user.avatarUrl || logo} />}
               >
                 <Card.Meta
