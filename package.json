@@ -12,6 +12,7 @@
     "mobx": "^5.0.3",
     "mobx-react": "^5.2.3",
     "mobx-state-tree": "^2.2.0",
+    "moment": "^2.22.2",
     "rc-queue-anim": "^1.6.5",
     "rc-scroll-anim": "^2.5.3",
     "rc-tween-one": "^2.1.4",
@@ -27,6 +28,7 @@
     "react-split-pane": "^0.1.81",
     "reqwest": "^2.0.5",
     "slate": "^0.34.5",
+    "wangeditor": "^3.1.1",
     "xterm": "^3.4.1"
   },
   "scripts": {

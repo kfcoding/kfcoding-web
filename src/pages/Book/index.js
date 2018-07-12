@@ -71,7 +71,7 @@ class Kongfu extends React.Component {
             <Icon style={{marginRight: 10}} type='book'/>
             <Link to={`/users/${this.state.kongfu.userId}`}>{this.state.kongfu.author}</Link> / <Link
             to={`/books/${this.state.kongfu.id}`}>{this.state.kongfu.title}</Link>
-            {this.state.author.id === store.currentUser.id &&
+            {this.state.kongfu.userId === store.currentUser.id &&
             <Link to={'/editor/' + this.state.kongfu.id} style={{position: 'absolute', right: 120}}>
               <Button icon="edit">编 辑</Button>
             </Link>
@@ -105,7 +105,7 @@ class Kongfu extends React.Component {
                   暂无讨论
                 </Card>
               </Tabs.TabPane>
-              {this.state.author.id === store.currentUser.id &&
+              {this.state.kongfu.userId === store.currentUser.id &&
               <Tabs.TabPane tab={<span><Icon type="setting"/>设 置</span>} key="3">
                 <Card title='设置'>
                   <KongfuSettings book={this.state.kongfu}/>
