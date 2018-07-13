@@ -20,7 +20,8 @@ class Work extends React.Component {
     })
   }
 
-  run = (record) => {
+  run = (record) => {return;
+  // TODO:
     let data = {
       image: record.image,
       title: 'tmp-' + new Date().getTime(),
@@ -29,6 +30,9 @@ class Work extends React.Component {
     };
 
     this.props.store.currentUser.workspaceStore.createWorkspace(data);
+    setTimeout(() => {
+      window.location.href = 'http://workspace.kfcoding.com/'
+    })
   }
 
   render() {

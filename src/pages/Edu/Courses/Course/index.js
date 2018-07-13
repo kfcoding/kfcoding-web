@@ -67,8 +67,8 @@ class Course extends React.Component {
         console.log(data);
       });
       socket.on('connect', () => {
-        // fetch('http://gitee.workspace.kfcoding.com/repo', {
-        request('http://192.168.1.115:3000/repo', {
+        fetch('http://gitee.workspace.kfcoding.com/repo', {
+        // request('http://192.168.1.115:3000/repo', {
 
           method: 'POST',
           headers: {
