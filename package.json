@@ -8,9 +8,11 @@
     "antd": "^3.6.0",
     "babel-plugin-import": "^1.8.0",
     "brace": "^0.11.1",
+    "eslint": "^4.11.0",
     "mobx": "^5.0.3",
     "mobx-react": "^5.2.3",
     "mobx-state-tree": "^2.2.0",
+    "moment": "^2.22.2",
     "rc-queue-anim": "^1.6.5",
     "rc-scroll-anim": "^2.5.3",
     "rc-tween-one": "^2.1.4",
@@ -24,9 +26,11 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
     "react-split-pane": "^0.1.81",
+    "reqwest": "^2.0.5",
     "slate": "^0.34.5",
     "socket.io-client": "^2.1.1",
     "styled-components": "^3.3.3",
+    "wangeditor": "^3.1.1",
     "xterm": "^3.4.1"
   },
   "scripts": {
@@ -34,5 +38,8 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^2.9.7"
   }
 }
