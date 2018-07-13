@@ -21,16 +21,16 @@ class Courses extends React.Component {
     super(props);
 
     // ensure data fetched from server
-    setTimeout(() => {
-      if (props.store.currentUser.role.toLowerCase() === 'teacher') {
-        return;
-      }
-      if (!props.store.currentUser.student
-        || !props.store.currentUser.student.realName
-        || !props.store.currentUser.student.studentNumber) {
-        this.props.history.push('/complete');
-      }
-    }, 2000);
+    // setTimeout(() => {
+    //   if (props.store.currentUser.role.toLowerCase() === 'teacher') {
+    //     return;
+    //   }
+    //   if (!props.store.currentUser.student
+    //     || !props.store.currentUser.student.realName
+    //     || !props.store.currentUser.student.studentNumber) {
+    //     this.props.history.push('/complete');
+    //   }
+    // }, 2000);
   }
 
   componentDidMount() {
