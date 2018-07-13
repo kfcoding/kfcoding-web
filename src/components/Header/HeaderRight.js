@@ -18,7 +18,7 @@ const menu = (
     </Menu.Item>
     <Menu.Divider/>
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="#" onClick={logout}><Icon type="poweroff"/> 退出</a>
+      <a rel="noopener noreferrer" href="#" onClick={logout}><Icon type="poweroff"/> 退出</a>
     </Menu.Item>
   </Menu>
 );
