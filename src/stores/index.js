@@ -9,6 +9,7 @@ export const Store = types
       id: '',
       email: '',
       name: '',
+      role: 'student'
     }),
   }).actions(self => ({
     loadCurrentUser: flow(function* () {
@@ -18,9 +19,14 @@ export const Store = types
         self.currentUser.id = data.id;
         self.currentUser.email = data.email;
         self.currentUser.name = data.name;
+        self.currentUser.role = data.role;
+        if (data.student) {
+          self.currentUser.student = data.student;
+        }
 
         localStorage.setItem('uid', data.id);
         localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('role', data.role);
       } catch (err) {
         console.log(err)
       }

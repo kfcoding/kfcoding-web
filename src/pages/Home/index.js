@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Icon, Button, Divider, Menu, Modal } from 'antd';
+import { Layout, Icon, Button, Divider, Menu, Modal, Tabs } from 'antd';
 import { Link } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 
@@ -28,36 +28,37 @@ class Home extends React.Component {
     });
 
     return (
-          <Layout style={{margin: 50, background: '#fff'}}>
-            <Sider width={200} style={{background: '#fff'}}>
-              <Menu
-                mode="inline"
-                defaultSelectedKeys={['1']}
-                defaultOpenKeys={['sub1']}
-                style={{height: '100%'}}
-              >
-                <SubMenu key="sub1" title={<span><Icon type="wallet"/>藏经阁</span>}>
-                  <Menu.Item key="1">
-                    <Link to="/home">
-                      我创建的秘籍
-                    </Link>
-                  </Menu.Item>
-                  <Menu.Item key="2">
-                    <Link to="/home/workspaces">
-                      我的Workspace
-                    </Link>
-                  </Menu.Item>
-                  {/*<Menu.Item key="2">我收藏的秘籍</Menu.Item>*/}
-                </SubMenu>
+      <Layout style={{margin: 50, background: '#fff'}}>
+        <Sider width={200} style={{background: '#fff'}}>
+          <Menu
+            mode="inline"
+            defaultSelectedKeys={['1']}
+            defaultOpenKeys={['sub1']}
+            style={{height: '100%'}}
+          >
+            <SubMenu key="sub1" title={<span><Icon type="wallet"/>藏经阁</span>}>
+              <Menu.Item key="1">
+                <Link to="/home">
+                  我创建的秘籍
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="2">
+                <Link to="/home/workspaces">
+                  我的Workspace
+                </Link>
+              </Menu.Item>
+              {/*<Menu.Item key="2">我收藏的秘籍</Menu.Item>*/}
+            </SubMenu>
 
-              </Menu>
-            </Sider>
-            <Content>
-              <div style={{background: '#fff', padding: 24, minHeight: 280, overflow: 'auto'}}>
-                <Divider orientation="left" style={{fontSize: '28px'}}>藏经阁</Divider>
+          </Menu>
+        </Sider>
+        <Content>
+          <div style={{background: '#fff', padding: 24, minHeight: 280, overflow: 'auto'}}>
+            <Tabs defaultActiveKey='1'>
+              <Tabs.TabPane tab='我创建的' key='1'>
                 {books}
-                <Link to='/books/create'>
-                  <div className='container'>
+                <div className='container'>
+                  <Link to='/books/create'>
                     <div className='book'>
                       <div className='front'>
                         <div className='addCover' style={{backgroundColor: '#525485'}}>
@@ -75,11 +76,17 @@ class Home extends React.Component {
                         </h2>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              </div>
-            </Content>
-          </Layout>
+                  </Link>
+                </div>
+              </Tabs.TabPane>
+              <Tabs.TabPane tab='我收藏的' key='2'>
+                暂无收藏
+              </Tabs.TabPane>
+            </Tabs>
+
+          </div>
+        </Content>
+      </Layout>
     )
   }
 }

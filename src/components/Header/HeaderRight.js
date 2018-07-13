@@ -1,7 +1,12 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import { Layout, Dropdown, Avatar, Icon, Menu, Button } from 'antd';
+import { Dropdown, Avatar, Icon, Menu, Button } from 'antd';
 import { Link } from 'react-router-dom';
+
+function logout() {
+  localStorage.removeItem('token');
+  window.location.href = '/';
+}
 
 const menu = (
   <Menu>
@@ -13,7 +18,7 @@ const menu = (
     </Menu.Item>
     <Menu.Divider/>
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="//"><Icon type="poweroff"/> 退出</a>
+      <a target="_blank" rel="noopener noreferrer" href="#" onClick={logout}><Icon type="poweroff"/> 退出</a>
     </Menu.Item>
   </Menu>
 );

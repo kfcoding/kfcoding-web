@@ -22,6 +22,14 @@ import Callback from "./pages/Signin/Callback";
 import UserProfile from 'pages/Profile/UserProfile';
 import UserSetting from "./pages/Home/UserSetting";
 import BasicLayout from "./layouts/BasicLayout";
+import InfoComplete from 'pages/Edu/InfoComplete';
+import NarrowLayout from 'layouts/NarrowLayout';
+import Courses from "./pages/Edu/Courses";
+import Course from "./pages/Edu/Courses/Course";
+import CreateCourse from "./pages/Edu/Courses/Create";
+import CreateWork from 'pages/Edu/Courses/Course/CreateWork';
+import Work from "./pages/Edu/Courses/Work";
+import EditWork from 'pages/Edu/Courses/Course/EditWork';
 
 if (window.location.hostname.substr(0, 3) == 'www') {
   window.location.replace('http://kfcoding.com');
@@ -54,6 +62,13 @@ ReactDOM.render(
         <Route path='/users/:user_id' exact component={props => <BasicLayout><UserProfile {...props}/></BasicLayout>}/>
         <Route path='/home/workspaces/create' exact component={CreateWorkspace}/>
         <Route path='/home/workspaces' exact component={props => <BasicLayout><MyWorkspaces {...props}/></BasicLayout>}/>
+        <Route path='/complete' exact component={props => <NarrowLayout><InfoComplete {...props}/></NarrowLayout>}/>
+        <Route path='/courses' exact component={props => <NarrowLayout><Courses {...props}/></NarrowLayout>}/>
+        <Route path='/courses/create' exact component={props => <NarrowLayout><CreateCourse {...props}/></NarrowLayout>}/>
+        <Route path='/courses/:course_id' exact component={props => <NarrowLayout><Course {...props}/></NarrowLayout>}/>
+        <Route path='/courses/:course_id/works/create' exact component={props => <NarrowLayout><CreateWork {...props}/></NarrowLayout>}/>
+        <Route path='/works/:work_id/submissions' exact component={props => <NarrowLayout><Work {...props}/></NarrowLayout>}/>
+        <Route path='/works/:work_id/edit' exact component={props => <NarrowLayout><EditWork {...props}/></NarrowLayout>}/>
       </Switch>
     </BrowserRouter>
   </Provider>,

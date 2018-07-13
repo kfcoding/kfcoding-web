@@ -4,14 +4,8 @@ import { inject, observer } from 'mobx-react';
 import {
   Form,
   Input,
-  DatePicker,
-  Select,
   Button,
   Card,
-  InputNumber,
-  Radio,
-  Icon,
-  Tooltip,
   Divider,
   Layout
 } from 'antd';
@@ -19,12 +13,9 @@ import {
 import MyHeader from "components/Header";
 import MyFooter from "components/Footer";
 import './Workspace.css';
-import { createWorkSpace, createContainer } from "services/workspace";
 
 const {Content} = Layout;
 const FormItem = Form.Item;
-const {Option} = Select;
-const {RangePicker} = DatePicker;
 const {TextArea} = Input;
 const templateList = [
   {

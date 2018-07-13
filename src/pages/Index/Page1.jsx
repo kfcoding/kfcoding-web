@@ -177,7 +177,6 @@ export default class Page1 extends React.PureComponent {
     opacity: 0, duration: 300, x: 100, y: 150, ease: 'easeInBack',
   };
   render() {
-    const isZhCN = 'zh-CN';
     const children = page1Data.map((item, i) => {
       const isHover = item.nameEn === this.state.hoverKey;
       return (

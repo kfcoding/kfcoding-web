@@ -65,3 +65,24 @@ export function emailSignup(data) {
       body: JSON.stringify(data)
   });
 }
+
+/**
+ * 获取当前用户创建的课程
+ */
+export function getMyCourses() {
+  return request(API + '/users/current/courses');
+}
+
+export function getMyWorkspaces() {
+  return request(API + '/workspaces');
+}
+
+export function updateStudentInfo(data) {
+  return request(API + '/students', {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(data)
+  });
+}

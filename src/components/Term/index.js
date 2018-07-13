@@ -1,6 +1,7 @@
 import React from 'react';
 import { Terminal } from 'xterm';
 import SockJS from 'sockjs-client';
+import io from 'socket.io-client';
 import 'xterm/dist/xterm.css';
 import * as fit from 'xterm/lib/addons/fit/fit';
 import { Spin } from 'antd';
@@ -14,7 +15,8 @@ class Term extends React.Component {
       terminal: new Terminal(),
       wsaddr: this.props.ws,
       ws: null,
-      connectSuccess: false
+      connectSuccess: false,
+      id: new Date().getTime()
     }
 
     this.termDom = React.createRef();
@@ -27,32 +29,22 @@ class Term extends React.Component {
   }
 
   componentDidMount() {
-    let { terminal } = this.state;
+    let { terminal, id } = this.state;
     terminal.open(this.termDom.current);
     terminal.fit();
-    //terminal.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
-    this.ws = new SockJS(this.state.wsaddr);
+    this.ws = io(this.state.wsaddr);
     var ws = this.ws;
-    var token = this.state.wsaddr.split('?')[1];
-    this.ws.onopen = function () {
-      ws.send(JSON.stringify({Op: 'bind', SessionID: token}));
-      //ws.send(JSON.stringify({Op: 'resize', Cols: 54, Rows: 39}));
-    }
-    this.ws.onmessage = (evt) => {
-      //let msg = JSON.parse(evt.data.substr(1));
-      terminal.write(evt.data);return;
-      // switch (msg['Op']) {
-      //   case 'stdout':
-      //     terminal.write(msg['Data']);
-      // }
-    }
-
+    ws.on('term.output', (data) => {
+      terminal.write(data.output)
+    });
+    ws.on('connect', () => {
+      ws.emit('term.open', {id: id, cols: terminal.cols, rows: terminal.rows});
+    });
     terminal.on('key', (key, ev) => {
-      this.ws.send(JSON.stringify({Op: 'stdin', Data: key}))
-    })
-
-    terminal.on('paste', (data, ev) => {
-      this.ws.send(JSON.stringify({Op: 'stdin', Data: data}))
+      ws.emit('term.input', {id: id, input: key});
+    });
+    terminal.on('resize', ({cols, rows}) => {
+      ws.emit('term.resize', {id: id, cols: cols, rows: rows})
     })
   }
 

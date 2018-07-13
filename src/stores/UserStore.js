@@ -3,16 +3,27 @@ import { BookStore } from "./BookStore";
 import { WorkspaceStore } from "./WorkspaceStore";
 import { deleteWorkspace, getWorkspaceByUser } from "../services/workspace";
 
+const Student = types
+  .model('Student', {
+    realName: types.string,
+    studentNumber: types.string
+  })
+
 export const User = types
   .model('User', {
     id: types.string,
     email: types.string,
     name: types.string,
+    role: types.string,
     bookStore: types.optional(BookStore, {
       books: []
     }),
     workspaceStore: types.optional(WorkspaceStore, {
       workspaces: []
+    }),
+    student: types.optional(Student, {
+      realName: '',
+      studentNumber: ''
     })
   }).actions(self => ({
     setToken(token) {
