@@ -1,13 +1,6 @@
 import React from 'react';
-import { Tabs, Card, Table, Button, Icon, message, Modal, Select, Popover, Tooltip, Breadcrumb } from 'antd';
-import { Link } from 'react-router-dom';
-import io from 'socket.io-client';
+import { Tabs, Card, Table, Button, Icon, message, Modal, Select, Popover, Tooltip, Breadcrumb, Tag } from 'antd';
 import { inject, observer } from 'mobx-react';
-import { getCourse } from "../../../../services/course";
-import { getMyWorkspaces } from "../../../../services/users";
-import { createSubmission } from "../../../../services/submission";
-import Work from "../Work";
-import request from "../../../../utils/request";
 import { doWork } from "../../../../services/work";
 
 const columns = [{
@@ -80,12 +73,20 @@ class StudentView extends React.Component {
       dataIndex: 'ops',
       render: (text, record) => (
         <div>
-          {this.props.store.currentUser.role !== 'teacher' ?
-            <Button onClick={() => {
-              this._doWork(record)
-            }}><Icon type="right-circle"/>做作业</Button>
-            :
-            <Link to={`/works/${record.id}/edit`}><Button><Icon type="edit"/>修改</Button></Link>
+          {
+            new Date(record.startTime) < new Date() && new Date(record.endTime) > new Date() ?
+
+              <Button onClick={() => {
+                this._doWork(record)
+              }}><Icon type="right-circle"/>做作业</Button>
+              :
+              (
+                new Date(record.startTime) > new Date() ?
+                  <Tag color="#2db7f5">未开始</Tag>
+                  :
+                  <Tag color="#f50">已结束</Tag>
+              )
+
           }
         </div>
       )
@@ -97,7 +98,7 @@ class StudentView extends React.Component {
           <Tabs.TabPane tab='作业列表' key='1'>
             <Table
               columns={workColumns}
-              dataSource={course.works.filter(w => new Date(w.startTime) < new Date() && new Date(w.endTime) > new Date())}
+              dataSource={course.works}
               expandedRowRender={(record) => {
                 return (
                   <div>

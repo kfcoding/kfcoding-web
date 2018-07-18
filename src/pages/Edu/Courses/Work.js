@@ -38,9 +38,9 @@ class Work extends React.Component {
       dataIndex: 'student.realName',
       sorter: (a, b) => a.student.realName.length - b.student.realName.length,
     }, {
-      title: '提交时间',
+      title: '开始时间',
       dataIndex: 'createTime',
-      sorter: (a, b) => a.createTime.length - b.createTime.length,
+      sorter: (a, b) => a.createTime - b.createTime,
     }, {
       title: '操作',
       dataIndex: 'ops',

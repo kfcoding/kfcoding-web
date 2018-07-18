@@ -11,7 +11,7 @@ const templateList = [
   {
     id: '1001',
     name: 'C++',
-    image: 'daocloud.io/shaoling/workspace-env-cpp-server:latest',
+    image: 'daocloud.io/shaoling/workspace-cpp:4c1c190',
     logo: '/C++.png',
   },
   {
