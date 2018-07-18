@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { LocaleProvider } from 'antd';
+import zh_CN from 'antd/lib/locale-provider/zh_CN';
+import 'moment/locale/zh-cn';
 import { Provider } from "mobx-react";
 import { onSnapshot } from "mobx-state-tree"
 import './index.css';
@@ -43,35 +46,66 @@ onSnapshot(store, (snapshot) => {
   console.dir(snapshot)
 })
 
+const fakeAuth = {
+  isAuthenticated: () => {
+    return localStorage.getItem('token') ? true : false;
+  },
+  authenticate(cb) {
+    this.isAuthenticated = true
+    setTimeout(cb, 100)
+  },
+  signout(cb) {
+    this.isAuthenticated = false
+    setTimeout(cb, 100)
+  }
+}
+
+const PrivateRoute = ({component: Component, ...rest}) => (
+  <Route {...rest} render={(props) => (
+    fakeAuth.isAuthenticated() === true
+      ? <Component {...props} />
+      : <Redirect to='/signin'/>
+  )}/>
+)
+
 ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <Switch>
-        <Route path='/' exact component={Index}/>
-        <Route path='/signup' exact component={WrappedSignUp}/>
-        <Route path='/signin' exact component={WrappedSignin}/>
-        <Route exact path='/editor/:kongfu_id' component={props => <Editor {...props}/>}/>
-        <Route path='/reader/:kongfu_id' component={props => <Reader {...props}/>}/>
-        <Route path='/auth/callback' component={Callback}/>
-        <Route path='/home' exact component={props => <BasicLayout><Home {...props}/></BasicLayout>}/>
-        <Route path='/library' component={Library}/>
-        <Route path='/books/create' exact component={CreateBook}/>
-        <Route path='/books/:kongfu_id' exact component={props => <BasicLayout><Book {...props}/></BasicLayout>}/>
-        <Route path='/books/:kongfu_id/settings' component={props => <KongfuSettings {...props}/>}/>
-        <Route path='/users/setting' exact component={UserSetting}/>
-        <Route path='/users/:user_id' exact component={props => <BasicLayout><UserProfile {...props}/></BasicLayout>}/>
-        <Route path='/home/workspaces/create' exact component={CreateWorkspace}/>
-        <Route path='/home/workspaces' exact component={props => <BasicLayout><MyWorkspaces {...props}/></BasicLayout>}/>
-        <Route path='/complete' exact component={props => <NarrowLayout><InfoComplete {...props}/></NarrowLayout>}/>
-        <Route path='/courses' exact component={props => <NarrowLayout><Courses {...props}/></NarrowLayout>}/>
-        <Route path='/courses/create' exact component={props => <NarrowLayout><CreateCourse {...props}/></NarrowLayout>}/>
-        <Route path='/courses/:course_id' exact component={props => <NarrowLayout><Course {...props}/></NarrowLayout>}/>
-        <Route path='/courses/:course_id/works/create' exact component={props => <NarrowLayout><CreateWork {...props}/></NarrowLayout>}/>
-        <Route path='/works/:work_id/submissions' exact component={props => <NarrowLayout><Work {...props}/></NarrowLayout>}/>
-        <Route path='/works/:work_id/edit' exact component={props => <NarrowLayout><EditWork {...props}/></NarrowLayout>}/>
-      </Switch>
-    </BrowserRouter>
-  </Provider>,
+  <LocaleProvider locale={zh_CN}>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route path='/' exact component={Index}/>
+          <Route path='/signup' exact component={WrappedSignUp}/>
+          <Route path='/signin' exact component={WrappedSignin}/>
+          <Route exact path='/editor/:kongfu_id' component={props => <Editor {...props}/>}/>
+          <Route path='/reader/:kongfu_id' component={props => <Reader {...props}/>}/>
+          <Route path='/auth/callback' component={Callback}/>
+          <Route path='/home' exact component={props => <BasicLayout><Home {...props}/></BasicLayout>}/>
+          <Route path='/library' component={Library}/>
+          <Route path='/books/create' exact component={CreateBook}/>
+          <Route path='/books/:kongfu_id' exact component={props => <BasicLayout><Book {...props}/></BasicLayout>}/>
+          <Route path='/books/:kongfu_id/settings' component={props => <KongfuSettings {...props}/>}/>
+          <Route path='/users/setting' exact component={UserSetting}/>
+          <Route path='/users/:user_id' exact
+                 component={props => <BasicLayout><UserProfile {...props}/></BasicLayout>}/>
+          <Route path='/home/workspaces/create' exact component={CreateWorkspace}/>
+          <Route path='/home/workspaces' exact
+                 component={props => <BasicLayout><MyWorkspaces {...props}/></BasicLayout>}/>
+          <Route path='/complete' exact component={props => <NarrowLayout><InfoComplete {...props}/></NarrowLayout>}/>
+          <PrivateRoute path='/courses' exact component={props => <NarrowLayout><Courses {...props}/></NarrowLayout>}/>
+          <Route path='/courses/create' exact
+                 component={props => <NarrowLayout><CreateCourse {...props}/></NarrowLayout>}/>
+          <Route path='/courses/:course_id' exact
+                 component={props => <NarrowLayout><Course {...props}/></NarrowLayout>}/>
+          <Route path='/courses/:course_id/works/create' exact
+                 component={props => <NarrowLayout><CreateWork {...props}/></NarrowLayout>}/>
+          <Route path='/works/:work_id/submissions' exact
+                 component={props => <NarrowLayout><Work {...props}/></NarrowLayout>}/>
+          <Route path='/works/:work_id/edit' exact
+                 component={props => <NarrowLayout><EditWork {...props}/></NarrowLayout>}/>
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  </LocaleProvider>,
   document.getElementById('root')
 );
 registerServiceWorker();

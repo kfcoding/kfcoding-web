@@ -41,6 +41,13 @@ class TrainPanel extends React.Component {
       return;
     }
     if (type == 'daocloud.io/shaoling/kfcoding-rstudio-latest:master') {
+      panes.push({
+        title: 'Rstudio-' + idx,
+        content: <Cloudware ws={'ws://cloudware-2.cloudware.kfcoding.com'} pod={'123'}/>,
+        key: idx + ''
+      })
+      this.setState({panes, activeKey});
+      return;
       createCloudware(type).then(res => {
         console.log(res)
         panes.push({

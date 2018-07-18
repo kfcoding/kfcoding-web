@@ -41,7 +41,7 @@ export function createTerminal(image) {
 }
 
 export function createCloudware(image) {
-  return request(API + '/cloudware/startContainer', {
+  return request('http://api.cloudware.kfcoding.com/cloudware/startContainer', {
     headers: {
       'Content-Type': 'application/json'
     },

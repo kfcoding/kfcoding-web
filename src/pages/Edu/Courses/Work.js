@@ -20,19 +20,9 @@ class Work extends React.Component {
     })
   }
 
-  run = (record) => {return;
-  // TODO:
-    let data = {
-      image: record.image,
-      title: 'tmp-' + new Date().getTime(),
-      description: 'tmp',
-      gitUrl: record.repo,
-    };
-
-    this.props.store.currentUser.workspaceStore.createWorkspace(data);
-    setTimeout(() => {
-      window.location.href = 'http://workspace.kfcoding.com/'
-    })
+  run = (record) => {
+    let w = window.open();
+    w.location.href = 'http://workspace.kfcoding.com/' + record.workspace.id;
   }
 
   render() {
@@ -57,11 +47,8 @@ class Work extends React.Component {
       render: (text, record) => (
         <div>
           <Tooltip title='运行'>
-            <Icon type="play-circle-o" onClick={() => {this.run(record)}} style={{margin: '0 10px'}}/>
+            <Icon type="play-circle-o" onClick={() => {this.run(record)}} style={{margin: '0 10px', cursor: 'pointer'}}/>
           </Tooltip>
-          <Popover title='Git地址' content={<a target='_blank' href={record.repo}>{record.repo}</a>}>
-            <Icon type="github" style={{margin: '0 10px'}}/>
-          </Popover>
         </div>
       )
     }];

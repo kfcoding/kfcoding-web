@@ -76,7 +76,6 @@ class CreateCourse extends React.Component {
             )}
           </FormItem>
 
-
           <FormItem {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">提 交</Button>
           </FormItem>
