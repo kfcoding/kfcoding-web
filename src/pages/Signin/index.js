@@ -7,6 +7,7 @@ import MyFooter from "components/Footer";
 import pic from '../../assets/pic.png';
 import { emailSignin, currentUser } from "../../services/users";
 import { openWindow } from "../../utils/openWindow";
+import md5 from 'md5';
 
 const FormItem = Form.Item;
 const {Content, Sider} = Layout;
@@ -81,7 +82,7 @@ class WrappedSignin extends React.Component {
   handleSubmit = () => {
     let data = {
       credenceName: this.state.fields.email.value,
-      credenceCode: this.state.fields.password.value,
+      credenceCode: md5(this.state.fields.password.value),
       authType: 'password'
     };
 

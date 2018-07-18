@@ -98,7 +98,7 @@ class StudentView extends React.Component {
           <Tabs.TabPane tab='作业列表' key='1'>
             <Table
               columns={workColumns}
-              dataSource={course.works}
+              dataSource={course.works.filter(w => new Date(w.startTime) < new Date())}
               expandedRowRender={(record) => {
                 return (
                   <div>

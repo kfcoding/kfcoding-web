@@ -5,6 +5,7 @@ import MyHeader from "components/Header";
 import MyFooter from "components/Footer";
 import pic from 'assets/pic.png';
 import { emailSignup, currentUser } from "services/users";
+import md5 from 'md5';
 
 const FormItem = Form.Item;
 const { Content, Sider } = Layout;
@@ -110,12 +111,16 @@ class WrappedSignUp extends React.Component  {
     let data = {
       email: this.state.fields.email.value,
       name: this.state.fields.nickname.value,
-      password: this.state.fields.password.value,
+      password: md5(this.state.fields.password.value),
     };
 
     emailSignup(data).then(res => {
       if (res.err) {
-        message.error('注册失败，邮箱已注册');
+        message.error('后端错误，请联系KFCoding');
+        return;
+      }
+      if (res.data.code != 200) {
+        message.error(res.data.message);
         return;
       }
       localStorage.setItem('token', res.data.result.token);
