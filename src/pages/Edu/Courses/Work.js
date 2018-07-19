@@ -40,6 +40,7 @@ class Work extends React.Component {
     }, {
       title: '开始时间',
       dataIndex: 'createTime',
+      render: r => new Date(r).toLocaleString(),
       sorter: (a, b) => a.createTime - b.createTime,
     }, {
       title: '操作',

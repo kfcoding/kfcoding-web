@@ -68,14 +68,17 @@ class Course extends React.Component {
     }, {
       title: '创建时间',
       dataIndex: 'createTime',
+      render: r => new Date(r).toLocaleString(),
       sorter: (a, b) => a.createTime - b.createTime,
     }, {
       title: '开始时间',
       dataIndex: 'startTime',
+      render: r => new Date(r).toLocaleString(),
       sorter: (a, b) => a.startTime - b.startTime,
     }, {
       title: '结束时间',
       dataIndex: 'endTime',
+      render: r => new Date(r).toLocaleString(),
       sorter: (a, b) => a.endTime - b.endTime,
     }, {
       title: '操作',
