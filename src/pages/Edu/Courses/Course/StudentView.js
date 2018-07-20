@@ -51,7 +51,7 @@ class StudentView extends React.Component {
       title: '标题',
       dataIndex: 'name',
       render: (text, record) => (
-        <Popover placement="topLeft" title={text} content={record.description} trigger='click'>
+        <Popover placement="topLeft" title={text} content={<pre>{record.description}</pre>} trigger='click'>
           <a href='javascript:;'>{text}</a>
         </Popover>
       ),
@@ -59,14 +59,17 @@ class StudentView extends React.Component {
     }, {
       title: '创建时间',
       dataIndex: 'createTime',
+      render: r => new Date(r).toLocaleString(),
       sorter: (a, b) => a.createTime.length - b.createTime.length,
     }, {
       title: '开始时间',
       dataIndex: 'startTime',
+      render: r => new Date(r).toLocaleString(),
       sorter: (a, b) => a.startTime - b.startTime,
     }, {
       title: '结束时间',
       dataIndex: 'endTime',
+      render: r => new Date(r).toLocaleString(),
       sorter: (a, b) => a.endTime - b.endTime,
     }, {
       title: '操作',
@@ -102,7 +105,7 @@ class StudentView extends React.Component {
               expandedRowRender={(record) => {
                 return (
                   <div>
-                    <p>作业内容：{record.description}</p>
+                    <p><pre>{record.description}</pre></p>
                   </div>
                 )
               }}

@@ -60,7 +60,7 @@ class Course extends React.Component {
       title: '标题',
       dataIndex: 'name',
       render: (text, record) => (
-        <Popover placement="topLeft" title={text} content={record.description} trigger='click'>
+        <Popover placement="topLeft" title={text} content={<pre>{record.description}</pre>} trigger='click'>
           <a href='javascript:;'>{text}</a>
         </Popover>
       ),
