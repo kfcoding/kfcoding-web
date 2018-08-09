@@ -1,10 +1,8 @@
 import React from 'react';
 import { Terminal } from 'xterm';
-import SockJS from 'sockjs-client';
 import io from 'socket.io-client';
 import 'xterm/dist/xterm.css';
 import * as fit from 'xterm/lib/addons/fit/fit';
-import { Spin } from 'antd';
 
 class Term extends React.Component {
 
@@ -38,13 +36,13 @@ class Term extends React.Component {
       terminal.write(data.output)
     });
     ws.on('connect', () => {
-      ws.emit('term.open', {id: id, cols: terminal.cols, rows: terminal.rows});
+      ws.emit('term.open', {id: id.toString(), cols: terminal.cols, rows: terminal.rows, path: '/'});
     });
     terminal.on('key', (key, ev) => {
-      ws.emit('term.input', {id: id, input: key});
+      ws.emit('term.input', {id: id.toString(), input: key});
     });
     terminal.on('resize', ({cols, rows}) => {
-      ws.emit('term.resize', {id: id, cols: cols, rows: rows})
+      ws.emit('term.resize', {id: id.toString(), cols: cols, rows: rows})
     })
   }
 

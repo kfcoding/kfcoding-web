@@ -6,6 +6,7 @@ import './style.css';
 import Cloudware from "./Cloudware";
 import Ide from './Ide';
 import Fullscreen from "react-full-screen";
+import {createWorkSpace, keepWorkSpace} from "../../services/workspace";
 
 const TabPane = Tabs.TabPane;
 
@@ -48,35 +49,46 @@ class TrainPanel extends React.Component {
       })
       this.setState({panes, activeKey});
       return;
-      createCloudware(type).then(res => {
-        console.log(res)
-        panes.push({
-          title: 'Rstudio-' + idx,
-          content: <Cloudware ws={'ws://' + res.data.result.webSocketAddress} pod={res.data.result.podResult.metadata.name}/>,
-          key: idx + ''
-        })
-        this.setState({panes, activeKey})
-      })
+      // createWorkSpace(type).then(res => {
+      //   console.log(res)
+      //   panes.push({
+      //     title: 'Rstudio-' + idx,
+      //     content: <Cloudware ws={'ws://' + res.data.result.webSocketAddress} pod={res.data.result.podResult.metadata.name}/>,
+      //     key: idx + ''
+      //   })
+      //   this.setState({panes, activeKey})
+      // })
       return;
     }
-    createTerminal(type).then(res => {
+    // 如果是创建terminal
+    let workspace = {};
+    workspace.image = type;
+    workspace.type = 'terminal';
+
+    createWorkSpace(workspace).then(res => {
       console.log(res);//return;
       let name = type;
-      if (type == 'ubuntu') {
+      if (type == 'registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:ubuntu') {
         name = 'Linux环境';
-      } else if (type == 'nginx') {
+      } else if (type == 'registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:nginx') {
         name = 'Nginx服务器'
-      } else if (type == 'node') {
+      } else if (type == 'registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:node') {
         name = 'Nodejs环境'
-      } else if (type == 'kfcoding.com/git:v1.0') {
+      } else if (type == 'registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:git') {
         name = 'Git'
+      } else if (type == 'registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:python3') {
+        name = "Python3"
       }
       panes.push({
         title: name + '-' + idx,
-        content: <Term ref={el => this.terms[activeKey] = el} ws={res.data.result.WsAddr} style={{height: '100%'}}/>,
+        content: <Term ref={el => this.terms[activeKey] = el} ws={res.data.result.workspace.wsaddr} style={{height: '100%'}}/>,
         key: idx + ''
       })
-      this.setState({panes, activeKey})
+      this.setState({panes, activeKey});
+      setInterval(() => {
+        keepWorkSpace(res.data.result.containerName, 'terminal');
+      }, 1000 * 60)
+
     })
 
   }
@@ -121,15 +133,13 @@ class TrainPanel extends React.Component {
       <Menu onClick={this.onExtraClick}>
         <Menu.Item key='ide'>WebIDE</Menu.Item>
         <Menu.Divider />
-        <Menu.Item key="ubuntu">
+        <Menu.Item key="registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:ubuntu">
           Linux环境
         </Menu.Item>
-        <Menu.Item key="python">
-          Python环境
-        </Menu.Item>
-        <Menu.Item key="node">Nodejs环境</Menu.Item>
-        <Menu.Item key="nginx">Nginx服务器</Menu.Item>
-        <Menu.Item key='kfcoding.com/git:v1.0'>Git环境</Menu.Item>
+        <Menu.Item key="registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:node">Nodejs环境</Menu.Item>
+        <Menu.Item key="registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:nginx">Nginx服务器</Menu.Item>
+        <Menu.Item key='registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:git'>Git环境</Menu.Item>
+        <Menu.Item key='registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:python3'>Python3环境</Menu.Item>
         <Menu.Divider />
         <Menu.Item key='daocloud.io/shaoling/kfcoding-rstudio-latest:master'>Rstudio(GUI)</Menu.Item>
       </Menu>

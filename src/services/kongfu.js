@@ -27,31 +27,6 @@ export function getKongfu(kongfu_id) {
   return request(API + '/kongfu/' + kongfu_id)
 }
 
-export function createTerminal(image) {
-  return request(API + '/cloudware/startContainer', {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    method: 'POST',
-    body: JSON.stringify({
-      type: 1,
-      imageName: image
-    })
-  });
-}
-
-export function createCloudware(image) {
-  return request('http://api.cloudware.kfcoding.com/cloudware/startContainer', {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    method: 'POST',
-    body: JSON.stringify({
-      type: 0,
-      imageName: image
-    })
-  });
-}
 
 export function getTags() {
   return request(API + '/kongfu/taglist')

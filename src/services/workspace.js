@@ -24,15 +24,7 @@ export function deleteWorkspace(id) {
   });
 }
 
-export function createContainer(imageName) {
-  return request("http://aliapi.workspace.cloudwarehub.com/workspace",
-    {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({image: imageName})
-    }
-  )
-};
+export function keepWorkSpace(containerName, type) {
+  return request(API + "workspaces/keep?containerName=" + containerName + "&type=" + type)
+}
 

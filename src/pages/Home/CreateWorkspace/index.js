@@ -21,25 +21,25 @@ const templateList = [
   {
     id: '1001',
     name: 'C++',
-    image: 'daocloud.io/shaoling/workspace-env-cpp-server:latest',
+    image: 'registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:cpp',
     logo: '/C++.png',
   },
   {
     id: '1002',
     name: 'Python',
-    image: 'kfcoding/workspace-python',
+    image: 'registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:python3',
     logo: '/Python.png',
   },
   {
     id: '1003',
     name: 'NodeJs',
-    image: 'kfcoding/workspace-node',
+    image: 'registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:node',
     logo: '/NodeJs.png',
   },
   {
     id: '1004',
     name: 'HTML5',
-    image: 'kfcoding/workspace-html5',
+    image: 'registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:nginx',
     logo: '/HTML5.png',
   },
 ];
@@ -173,7 +173,8 @@ class CreateWorkspace extends PureComponent {
       environment: _this.state.template,
       gitUrl: _this.state.fields.URL.value,
       userId: user.id,
-      containerName: ''
+      containerName: '',
+      type: 'workspace',
     };
 
     store.currentUser.workspaceStore.createWorkspace(data);
