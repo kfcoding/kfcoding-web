@@ -16,8 +16,8 @@ export const WorkspaceStore = types
     createWorkspace: flow(function*(data) {
       // self.createContainer(data.image);
       try {
-        const result = yield createContainer(data.image);
-        data.containerName = result.data.name;
+        // const result = yield createContainer(data.image);
+        // data.containerName = result.data.name;
 
         const result1 = yield createWorkSpace(data);
         self.workspaces.push({
