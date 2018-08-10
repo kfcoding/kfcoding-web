@@ -86,7 +86,7 @@ class TrainPanel extends React.Component {
       })
       this.setState({panes, activeKey});
       setInterval(() => {
-        keepWorkSpace(res.data.result.containerName, 'terminal');
+        keepWorkSpace(res.data.result.workspace.containerName, 'terminal');
       }, 1000 * 60)
 
     })
