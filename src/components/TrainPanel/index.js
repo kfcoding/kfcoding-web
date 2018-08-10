@@ -6,7 +6,7 @@ import './style.css';
 import Cloudware from "./Cloudware";
 import Ide from './Ide';
 import Fullscreen from "react-full-screen";
-import {createWorkSpace, keepWorkSpace} from "../../services/workspace";
+import {createTerminalWorkSpace, keepWorkSpace} from "../../services/workspace";
 
 const TabPane = Tabs.TabPane;
 
@@ -19,6 +19,7 @@ class TrainPanel extends React.Component {
       terminalIdx: 1,
       activeKey: '1',
       isFull: false,
+      containerName : '',
     }
 
     this.terms = {}
@@ -49,7 +50,7 @@ class TrainPanel extends React.Component {
       })
       this.setState({panes, activeKey});
       return;
-      // createWorkSpace(type).then(res => {
+      // createTerminalWorkSpace(type).then(res => {
       //   console.log(res)
       //   panes.push({
       //     title: 'Rstudio-' + idx,
@@ -64,9 +65,7 @@ class TrainPanel extends React.Component {
     let workspace = {};
     workspace.image = type;
     workspace.type = 'terminal';
-
-    createWorkSpace(workspace).then(res => {
-      console.log(res);//return;
+    createTerminalWorkSpace(workspace).then(res => {
       let name = type;
       if (type == 'registry-vpc.cn-shanghai.aliyuncs.com/kfcoding/workspace-envs:ubuntu') {
         name = 'Linux环境';

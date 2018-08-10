@@ -1,6 +1,16 @@
 import request from '../utils/request';
 import API from "../utils/api";
 
+export function createTerminalWorkSpace(data) {
+  return request(API + '/workspaces/terminal', {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(data)
+  });
+}
+
 export function createWorkSpace(data) {
   return request(API + '/workspaces', {
     headers: {
@@ -25,6 +35,7 @@ export function deleteWorkspace(id) {
 }
 
 export function keepWorkSpace(containerName, type) {
-  return request(API + "workspaces/keep?containerName=" + containerName + "&type=" + type)
+  alert('keep')
+  return request(API + "/workspaces/keep?containerName=" + containerName + "&type=" + type)
 }
 

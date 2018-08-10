@@ -190,7 +190,7 @@ class CreateWorkspace extends PureComponent {
     //     userId: user.id,
     //     containerName: r.data.name
     //   };
-    //   createWorkSpace(data).then(res => {
+    //   createTerminalWorkSpace(data).then(res => {
     //     if (!res.err) {
     //       window.location.href = 'http://workspace.kfcoding.com/' + res.data.result.workspace.id;
     //     }

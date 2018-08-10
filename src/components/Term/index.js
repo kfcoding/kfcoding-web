@@ -21,9 +21,11 @@ class Term extends React.Component {
   }
 
   pasteCode = (v) => {
-    if (!this.ws || this.ws.readyState !== 1)
+    // alert(this.ws.readyState !== 1)
+    if (!this.ws)
       return;
-    this.ws.send(JSON.stringify({Op: 'stdin', Data: v}));
+    // this.ws.send(JSON.stringify({Op: 'stdin', Data: v}));
+    this.ws.emit('term.input', {id: this.state.id.toString(), input: v})
   }
 
   componentDidMount() {
