@@ -35,7 +35,6 @@ export function deleteWorkspace(id) {
 }
 
 export function keepWorkSpace(containerName, type) {
-  alert('keep')
   return request(API + "/workspaces/keep?containerName=" + containerName + "&type=" + type)
 }
 
