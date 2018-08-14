@@ -50,7 +50,7 @@ class Term extends React.Component {
 
   render() {
     return (
-      <div ref={this.termDom} style={{width: '100%', height: '100%', position: 'absolute'}}></div>
+      <div ref={this.termDom} style={{width: '100%', height: '85%', position: 'absolute'}}></div>
     );
   }
 }
