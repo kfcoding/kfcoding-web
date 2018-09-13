@@ -237,7 +237,7 @@ class Reader extends React.Component {
                       </div>
                       <div style={{width:750}}>
                         <Divider />
-                        <Comment/>
+                        {/*<Comment/>*/}
                       </div>
                       {/*<Steps current={1}>*/}
                       {/*<Step title="Finished" description="This is a description." />*/}
