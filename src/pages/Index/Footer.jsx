@@ -7,7 +7,7 @@ class MyFooter extends React.Component {
   render() {
     return (
       <Footer style={{background: '#f3f3f3', clear: 'both', textAlign: 'center'}}>
-        功夫编程 KFCoding.com 2018
+        Copyright @2018 功夫编程 kfcoding.com{this.props.children}||<a href='http://www.miitbeian.gov.cn/'>沪ICP备18019397号</a>
       </Footer>
     )
   }

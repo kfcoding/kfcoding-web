@@ -16,7 +16,7 @@ class MyFooter extends React.Component {
     return (
       <Footer style={{background: '#f3f3f3', clear: 'both', marginTop: 30}}>
         <Container>
-        功夫编程 KFCoding.com 2018{this.props.children}
+          Copyright @2018 功夫编程 kfcoding.com{this.props.children}||<a href='http://www.miitbeian.gov.cn/'>沪ICP备18019397号</a>
         </Container>
       </Footer>
     )
