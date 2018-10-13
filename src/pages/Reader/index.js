@@ -231,6 +231,16 @@ class Reader extends React.Component {
                   <div>
                     <div
                       style={{height: 'calc(100vh - 64px)', overflow: 'hidden', overflowY: 'scroll', position: 'relative', background: '#fff'}}>
+                      {(this.state.currentPage && this.state.currentPage.file === '1536737346502.json') &&
+                        <div style={{textAlign: 'center', marginTop: 30}}>
+                          <embed src='http://player.youku.com/player.php/sid/XMzg2MTU3MTE4NA==/v.swf' allowFullScreen='true' quality='high' width='720' height='400' align='middle' allowScriptAccess='always' type='application/x-shockwave-flash'></embed>
+                        </div>
+                      }
+                      {(this.state.currentPage && this.state.currentPage.file === "1536737415895.json") &&
+                      <div style={{textAlign: 'center', marginTop: 30}}>
+                        <embed src='http://player.youku.com/player.php/sid/XMzg2MTU0MTMyOA==/v.swf' allowFullScreen='true' quality='high' width='720' height='400' align='middle' allowScriptAccess='always' type='application/x-shockwave-flash'></embed>
+                      </div>
+                      }
                       {editor}
                       <div style={{textAlign: 'right', paddingRight: '40px'}}>
                         评分：<Rate/>
